@@ -1,6 +1,8 @@
 # Información adicional — shiny-agro-maices
 
 Notas para quien (persona o agente) vaya a **desplegar, mantener o modificar** esta app.
+El contexto de operación —cómo se levanta, con qué, en qué puerto— está en
+`.agents/AGENTS.md`; aquí va lo que hay que saber antes de tocar el código.
 Recogen problemas que ya se encontraron y se resolvieron, y trampas que **no producen
 ningún error visible** — ni en el log de Shiny ni en la consola del navegador — así que
 son imposibles de descubrir leyendo el código.
@@ -545,18 +547,27 @@ conservan las siete familias y el orden interno; sólo cambian 14 de las 63 raza
 
 ## 9. Comprobaciones antes de publicar
 
-```r
-# 1. El locale no está rompiendo los colores (debe dar 0)
-sum(!grepl("^#[0-9A-Fa-f]{6}$", TableL$RatingCol))
+Se copian y se pegan tal cual, desde la raíz del repositorio:
 
-# 2. Los estados de los datos empatan con los de la tabla de capitales (debe dar 0)
-length(setdiff(levels(Mex3$Estado), capitales_altitud$estado))
-
-# 3. Los selectores no están vacíos (ninguno debe dar 0)
-length(sort(unique(Parientes$Tipo)))   # 2: Teocintle y Tripsacum
-length(razas_con_gradiente)            # 55
-length(complejos_opciones)             # 7
+```bash
+LC_ALL=C Rscript -e '
+  source("global.R")
+  cat("locale:              ", Sys.getlocale("LC_CTYPE"), "\n")
+  cat("colores rotos:       ", sum(!grepl("^#[0-9A-Fa-f]{6}$", TableL$RatingCol)), "(debe dar 0)\n")
+  cat("estados sin capital: ", length(setdiff(levels(Mex3$Estado), capitales_altitud$estado)), "(debe dar 0)\n")
+  cat("Parientes$Tipo:      ", length(sort(unique(Parientes$Tipo))), "(debe dar 2)\n")
+  cat("razas_con_gradiente: ", length(razas_con_gradiente), "(debe dar 55)\n")
+  cat("complejos_opciones:  ", length(complejos_opciones), "(debe dar 7)\n")
+'
 ```
+
+⚠️ **Sin `--vanilla`.** Esa bandera se salta `.Rprofile`, que es donde se activa `renv`, así
+que la comprobación pasaría por la librería **del sistema** en vez de por las versiones que
+el proyecto fija. Puede salir en verde con el proyecto roto.
+
+El `LC_ALL=C` del principio no es un descuido: fuerza el peor caso para que se vea si el
+bloque de locale de `global.R` hace su trabajo. La primera línea debe reportar un locale
+UTF-8, no `C`.
 
 Y en el navegador, **en ventana de incógnito** (para saltarse el caché de teselas):
 
