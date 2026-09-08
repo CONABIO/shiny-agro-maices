@@ -672,11 +672,14 @@ httr                 1.4.8       ggthemes             6.0.0
 RColorBrewer         1.1.3
 ```
 
-Este repositorio **sí usa `renv`**: `renv.lock` fija las 167 versiones con las que se
-resuelve la app. Al trasladar el trabajo se registraron `datamods`, `ggiraph`, `ggrepel`
-y `shinyWidgets` con sus 21 dependencias, y se dieron de baja `ggalt` y `googleVis` junto
-con lo que sólo ellos arrastraban (`ash`, `extrafont`, `extrafontdb`, `maps`, `proj4`,
-`Rttf2pt1`). Los mismos cambios van en `scripts/install_reqs.sh`, que es lo que instala
+Este repositorio **sí usa `renv`**: `renv.lock` fija las 168 versiones con las que se
+resuelve la app, y desde el 8 de septiembre de 2026 está sincronizado con R 4.5.1 y con
+las versiones que se listan arriba. Antes declaraba R 4.4.3 y ggplot2 3.5.2 —una versión
+mayor distinta de la que se probó—, así que un `renv::restore()` entregaba una app
+distinta de la verificada. Al trasladar el trabajo se registraron `datamods`, `ggiraph`,
+`ggrepel` y `shinyWidgets` con sus dependencias, y se dieron de baja `ggalt` y `googleVis`
+junto con lo que sólo ellos arrastraban (`ash`, `extrafont`, `extrafontdb`, `maps`,
+`proj4`, `Rttf2pt1`). Los mismos cambios van en `scripts/install_reqs.sh`, que es lo que instala
 la imagen de Docker; `renv` no interviene en el contenedor, porque `.dockerignore`
 excluye `renv/` y `.Rprofile`.
 
