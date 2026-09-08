@@ -22,13 +22,12 @@ apt_install \
     libharfbuzz-dev
 
 install2.r --error --skipinstalled -n "$NCPUS" \
-    ash \
-    maps \
-    extrafont \
     RColorBrewer \
+    datamods \
+    ggiraph \
     ggplot2 \
+    ggrepel \
     ggthemes \
-    googleVis \
     grid \
     httr \
     igraph \
@@ -37,19 +36,19 @@ install2.r --error --skipinstalled -n "$NCPUS" \
     markdown \
     plotly \
     plyr \
-    proj4 \
     readxl \
     scales \
     shiny \
+    shinyWidgets \
     shinydashboard \
     shinydashboardPlus \
     shinyjs \
     shinythemes \
+    stringi \
     tableHTML \
     tidyverse \
     vcd 
 
-install2.r --error --skipinstalled -r NULL -t "source" "https://cran.r-project.org/src/contrib/Archive/ggalt/ggalt_0.4.0.tar.gz"
 
 
 ## a bridge to far? -- brings in another 60 packages
