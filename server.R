@@ -517,7 +517,8 @@ shinyServer(function(input, output, session) {
 
     TT <- paste(Goldberg$Raza_primaria)
     leaflet() %>%
-      addTiles() %>%
+      addProviderTiles("Esri.WorldGrayCanvas", group = "Esri.WorldGrayCanvas") %>%
+      addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
       addCircleMarkers(Goldberg$longitude, Goldberg$latitude,
         weight = 8, radius = 5, stroke = F, fillOpacity = 0.9, color = Goldberg$RatingCol,
         popup = paste(
@@ -543,7 +544,11 @@ shinyServer(function(input, output, session) {
           "Proyecto:", Parientes2$Fuente
         ), group = "Parientes"
       ) %>%
-      addProviderTiles("CartoDB.Positron")
+      addLayersControl(
+        baseGroups = c("Esri.WorldGrayCanvas", "Esri.WorldImagery"),
+        options = layersControlOptions(collapsed = FALSE),
+        position = "bottomleft"
+      )
   })
 
 
