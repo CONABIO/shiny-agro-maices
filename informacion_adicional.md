@@ -66,11 +66,18 @@ cambian según el sistema: `es_MX.UTF-8` suele no existir en Linux, donde lo seg
 Verificado arrancando con `LC_ALL=C`, que antes dejaba 11,233 registros sin color: ahora
 promueve el locale a UTF-8 y quedan **0**.
 
-En un `Dockerfile`, conviene además:
+En un `Dockerfile`, conviene además fijarlo explícitamente. `rocker/shiny` ya define
+`LANG=en_US.UTF-8`, pero **no** `LC_ALL`, que es el que manda:
 
 ```dockerfile
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 ```
+
+⚠️ **No poner `C.UTF-8` aquí.** Arregla los colores igual, pero ordena por bytes y manda
+los acentos al final de su letra: `sort()` deja "Cónico" y "Cónico Norteño" *después* de
+"Cubano Amarillo", y lo mismo con las otras 12 razas acentuadas, en todos los selectores.
+En una imagen sin `en_US.UTF-8` generado, `C.UTF-8` sigue siendo mejor que nada — pero
+entonces el orden de los desplegables cambia.
 
 ### Cómo verificarlo sin abrir la app
 
