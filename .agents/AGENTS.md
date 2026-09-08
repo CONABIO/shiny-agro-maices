@@ -9,7 +9,7 @@ This repository contains the Shiny application for Maize by CONABIO.
 - **Local Development & Running**:
   - Use `podman compose up --build -d` (or `docker compose up --build -d`) to build and run the application container.
   - The application inside the container expects paths relative to `/srv/shiny-server/`.
-  - Make sure that directories containing necessary application assets (such as `extra_files` or `data`) are NOT excluded by `.dockerignore` unless they are mounted dynamically.
+  - Make sure that directories containing necessary application assets (such as `extra_files`, `data` or `www/js`) are NOT excluded by `.dockerignore` unless they are mounted dynamically.
   - To check if the application is running, visit `http://localhost:3838` (or the port specified in `docker-compose.yml`).
   - To stop the application, use `podman compose down -v` (or `docker compose down`).
   - File `scripts/install_reqs.sh` helps to install extra systems packages for the R packages needed by teh aplication.
