@@ -1,6 +1,6 @@
 # Agent Instructions and Context: shiny-agro-maices
 
-This repository contains the Shiny application for the Proyecto Global de Maíces (PGM) by CONABIO.
+This repository contains the Shiny application for Maize by CONABIO.
 
 ## Key Information
 
@@ -12,3 +12,4 @@ This repository contains the Shiny application for the Proyecto Global de Maíce
   - Make sure that directories containing necessary application assets (such as `extra_files` or `data`) are NOT excluded by `.dockerignore` unless they are mounted dynamically.
   - To check if the application is running, visit `http://localhost:3838` (or the port specified in `docker-compose.yml`).
   - To stop the application, use `podman compose down -v` (or `docker compose down`).
+  - File `scripts/install_reqs.sh` helps to install extra systems packages for the R packages needed by teh aplication.
