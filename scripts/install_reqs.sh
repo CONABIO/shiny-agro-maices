@@ -15,11 +15,20 @@ function apt_install() {
     fi
 }
 
+# Las cuatro primeras venían de antes. Las cinco siguientes las piden gdtools
+# (cairo, freetype2, fontconfig) y ggiraph (libpng), que entraron con el paso de
+# las gráficas a SVG interactivo. Sobran si P3M sirve binarios, pero si alguna
+# versión cae a compilarse desde fuente sin ellas el `RUN` falla.
 apt_install \
     libgdal-dev \
     libglpk-dev \
     libfribidi-dev \
-    libharfbuzz-dev
+    libharfbuzz-dev \
+    libcairo2-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    zlib1g-dev
 
 install2.r --error --skipinstalled -n "$NCPUS" \
     RColorBrewer \
