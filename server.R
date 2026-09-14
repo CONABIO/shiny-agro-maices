@@ -128,8 +128,13 @@ shinyServer(function(input, output, session) {
           options = tileOptions(maxNativeZoom = 16, maxZoom = 19),
           attribution = "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ") %>%
         addProviderTiles(providers$Esri.WorldImagery, group = "Foto aérea") %>%
+        # El contorno blanco separa unos puntos de otros donde se amontonan, que es
+        # casi todo el centro del país. En leaflet `color` es el BORDE y `fillColor`
+        # el relleno: al pintar el borde de blanco hay que declarar el relleno
+        # aparte, porque si no lo hereda del borde y los puntos salen todos blancos.
         addCircleMarkers(Goldberg$longitude, Goldberg$latitude, 
-                         weight = 8, radius = 5, stroke = F, fillOpacity = 0.9, color = Goldberg$RatingCol,
+                         radius = 5, stroke = TRUE, color = "white", weight = 1, opacity = 0.3,
+                         fillColor = Goldberg$RatingCol, fillOpacity = 0.9,
                          popup = paste(sep = " ",
                                        "Complejo Racial:",Goldberg$Complejo_racial,"<br/>",
                                        "Raza Maiz:",Goldberg$Raza_primaria,"<br/>", 
